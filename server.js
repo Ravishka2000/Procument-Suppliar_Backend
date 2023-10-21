@@ -7,8 +7,9 @@ import supRequestRoutes from "./routes/supplierRoutes.js";
 import authRoutes from "./routes/auth.js";
 import refreshTokenRoutes from "./routes/refreshToken.js"
 import userRoutes from "./routes/users.js";
+import ProductRoutes from "./routes/ProductRoutes.js";
 
-const PORT = process.env.PORT || 8070;
+const PORT = process.env.PORT || 8008;
 dotenv.config();
 
 const app = express();
@@ -36,3 +37,4 @@ app.use("/api/supplierRequests", supRequestRoutes);
 app.use("/api", authRoutes);
 app.use("/api/refreshToken", refreshTokenRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/product", ProductRoutes);

@@ -2,7 +2,6 @@
 import { Router } from "express";
 import SupRequest from "../models/supplierRequests.js";
 import AcceptedRequest from "../models/acceptedRequests.js";
-import User from "../models/User.js";
 
 const router = Router();
 
@@ -25,26 +24,6 @@ router.get('/accepted', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
-  const { itemName, quantity, description, itemType, requestedBy } = req.body;
-  const requestDate = new Date();
-
-  const newRequest = new SupRequest({
-    itemName,
-    quantity,
-    description,
-    itemType,
-    requestDate,
-    requestedBy,
-  });
-
-  try {
-    const savedRequest = await newRequest.save();
-    res.json(savedRequest);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
 
 router.delete('/confirm/:id', async (req, res) => {
   const requestId = req.params.id;
@@ -132,17 +111,6 @@ router.delete('/cancel/:id', async (req, res) => {
 
   } catch (error) {
     res.status(500).json({ error: error.message });
-  }
-});
-
-
-router.post("/getCount", async (req, res) => {
-  const id = req.body.acceptedBy;
-  try {
-    const count = await AcceptedRequest.countDocuments({ acceptedBy: id });
-    res.status(200).json({ count });
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
   }
 });
 
